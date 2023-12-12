@@ -1,0 +1,36 @@
+﻿Soal Test terdiri dari 2 bagian yaitu technical test dan logical test!
+Technical(membuat api)
+
+1. Design Schema for the following:
+List of Patients, each patient can do a reservation for a consultation, the reservation is based on the clinic slot/schedule
+patient will get the queueing number
+
+2. Architecture Test:
+using python with Fastapi framework.
+Based on your schema, write CRUD APIs for the patient reservation case
+
+You can either submit
+the Github link or zip folder. Write any assumptions that you have in README.md
+
+Some things that we’d like to see on the project
+● explanation of your project structure or design pattern that you implement
+● Short manual to run the application (+ with docker, a must if you are not using python with fastapi framework)
+● API documentation. You can choose any format you like
+including README.md
+
+
+Algorithm
+2. Find a number sequence inside an array of numbers
+Int [] main = new int[] {20, 7, 8, 10, 2, 5, 6} // non repeating numbers
+Int [] seq= new int [] {1,4}
+sequenceExists(main, [7,8]) ⇒ true
+sequenceExists(main, [8, 7]) ⇒ false
+sequenceExists(main, [7, 10]) ⇒ false
+
+for this, you can use any languages you’re comfortable
+
+Send the results to:
+1. philipus.silaen@zicare.id
+2. oky.mikhael@zicare.id
+3. people@zicare.id
+
