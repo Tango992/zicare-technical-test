@@ -14,7 +14,7 @@ func main() {
 }
 
 /*
-	Assuming sequence contains more than 2 numbers
+	Assuming sequence contains 2 numbers or more
 */
 func sequenceExists(main, seq []int) bool {
 	mainLength := len(main)
