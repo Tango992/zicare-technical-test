@@ -1,6 +1,6 @@
 # Readme
 
-## Instruction
+## Task
 
 ### Find a number sequence inside an array of numbers
 
