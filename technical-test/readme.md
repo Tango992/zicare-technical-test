@@ -39,6 +39,7 @@ Create tables and relationships
 ```sql
 CREATE TABLE IF NOT EXISTS patients (
     id SERIAL PRIMARY KEY,
+    phone VARCHAR(50) UNIQUE NOT NULL,
     first_name VARCHAR(255) NOT NULL,
     middle_name VARCHAR(255),
     last_name VARCHAR(255),
