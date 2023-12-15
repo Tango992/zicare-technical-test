@@ -1,4 +1,5 @@
 from typing import List
+from fastapi import HTTPException
 import psycopg2
 import model
 
@@ -98,3 +99,13 @@ def find_user_appointments(user_id: int) -> List[model.Appointment]:
 
     except (Exception, psycopg2.DatabaseError) as error:
             print(error)
+
+def delete_user_appointment(queue_id: int, user_id:int) -> int:
+    try:
+        cur = conn.cursor()
+        query = f"DELETE FROM reservations WHERE id = {queue_id} AND patient_id = {user_id}"
+        cur.execute(query)
+        return cur.rowcount
+    
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)

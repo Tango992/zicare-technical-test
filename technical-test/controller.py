@@ -54,3 +54,10 @@ def create_appointment(request_data: model.DTOAppointmentRequest, user_id: int):
 def get_all_user_appointments(user_id: int) -> List[model.Appointment]:
     response = db.find_user_appointments(user_id)
     return response
+
+def delete_user_appointment(queue_id: int, user_id: int):
+    row_count = db.delete_user_appointment(queue_id, user_id)
+
+    if row_count == 0:
+        raise HTTPException(status_code=422, detail={"error": "queue_id and patient_id does not match / not found"})
+    return

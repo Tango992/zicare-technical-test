@@ -40,5 +40,13 @@ async def get_all_appointments(authorization: Annotated[str | None, Header()]):
     response = controller.get_all_user_appointments(user_id)
     return response
 
+
+@app.delete("/patient/appointment/{queue_id}", response_model=model.Response)
+async def delete_appointment(queue_id, authorization: Annotated[str | None, Header()]):
+    user_id = helper.verify_token(authorization)
+    controller.delete_user_appointment(queue_id, user_id)
+    return model.Response(message="Appointment was deleted successfully")
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8080, reload=True)

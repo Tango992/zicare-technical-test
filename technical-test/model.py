@@ -56,3 +56,6 @@ class Doctor(BaseModel):
     id: int
     speciality: str
     full_name: str
+
+class Response(BaseModel):
+    message: str
