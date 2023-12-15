@@ -34,7 +34,7 @@ async def create_appointment(request_data: model.DTOAppointmentRequest, authoriz
     return response
 
 
-@app.get("/patient/appointment")
+@app.get("/patient/appointment", response_model=List[model.Appointment])
 async def get_all_appointments(authorization: Annotated[str | None, Header()]):
     user_id = helper.verify_token(authorization)
     response = controller.get_all_user_appointments(user_id)
@@ -46,6 +46,13 @@ async def delete_appointment(queue_id, authorization: Annotated[str | None, Head
     user_id = helper.verify_token(authorization)
     controller.delete_user_appointment(queue_id, user_id)
     return model.Response(message="Appointment was deleted successfully")
+
+
+@app.put("/patient/appointment/{queue_id}", response_model=model.Response)
+async def delete_appointment(queue_id, request_data: model.DTOAppointmentRequest, authorization: Annotated[str | None, Header()]):
+    user_id = helper.verify_token(authorization)
+    controller.update_user_appointment(queue_id, user_id, request_data)
+    return model.Response(message="Appointment was updated successfully")
 
 
 if __name__ == "__main__":

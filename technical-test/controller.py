@@ -61,3 +61,17 @@ def delete_user_appointment(queue_id: int, user_id: int):
     if row_count == 0:
         raise HTTPException(status_code=422, detail={"error": "queue_id and patient_id does not match / not found"})
     return
+
+def update_user_appointment(queue_id: int, user_id: int, request_data: model.DTOAppointmentRequest):
+    appointment = model.Appointment(
+        queue_id=queue_id,
+        patient_id=user_id, 
+        doctor_id=request_data.doctor_id, 
+        appointment_date=request_data.appointment_date, 
+        appointment_time=request_data.appointment_time
+    )    
+    row_count = db.update_user_appointment(appointment)
+
+    if row_count == 0:
+        raise HTTPException(status_code=422, detail={"error": "queue_id and patient_id does not match / not found"})
+    return

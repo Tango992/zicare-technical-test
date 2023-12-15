@@ -1,7 +1,7 @@
-from typing import List
 from fastapi import HTTPException
-import psycopg2
+from typing import List
 import model
+import psycopg2
 
 conn = psycopg2.connect(
     database="zicare",
@@ -28,8 +28,8 @@ def get_all_doctors() -> List[model.Doctor]:
         return doctors
 
     except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
-
+        raise HTTPException(status_code=400, detail={"error": f"{error}"})
+    
 
 def register_patient(patient: model.RegisterPatient) -> int:
     try:
@@ -39,8 +39,8 @@ def register_patient(patient: model.RegisterPatient) -> int:
         return row[0]
         
     except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
-
+        raise HTTPException(status_code=400, detail={"error": f"{error}"})
+    
 
 def get_patient_password_by_phone(phone) -> str:
     try:
@@ -50,8 +50,8 @@ def get_patient_password_by_phone(phone) -> str:
         return result[0]
     
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-
+        raise HTTPException(status_code=400, detail={"error": f"{error}"})
+    
 
 def get_patient_id_by_phone(phone) -> int:
     try:
@@ -61,8 +61,8 @@ def get_patient_id_by_phone(phone) -> int:
         return result[0]
     
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-
+        raise HTTPException(status_code=400, detail={"error": f"{error}"})
+    
 
 def create_appointment(data: model.AppointmentRequest) -> int:
     try:
@@ -72,8 +72,8 @@ def create_appointment(data: model.AppointmentRequest) -> int:
         return result[0]
     
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-
+        raise HTTPException(status_code=400, detail={"error": f"{error}"})
+    
 
 def find_user_appointments(user_id: int) -> List[model.Appointment]:
     try:
@@ -84,7 +84,6 @@ def find_user_appointments(user_id: int) -> List[model.Appointment]:
         appointments = []
         
         while row is not None:
-            print(row)
             appointment = model.Appointment(
                 queue_id=row[0],
                 patient_id=row[1],
@@ -98,7 +97,8 @@ def find_user_appointments(user_id: int) -> List[model.Appointment]:
         return appointments
 
     except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+        raise HTTPException(status_code=400, detail={"error": f"{error}"})
+
 
 def delete_user_appointment(queue_id: int, user_id:int) -> int:
     try:
@@ -108,4 +108,15 @@ def delete_user_appointment(queue_id: int, user_id:int) -> int:
         return cur.rowcount
     
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        raise HTTPException(status_code=400, detail={"error": f"{error}"})
+
+
+def update_user_appointment(data: model.Appointment) -> int:
+    try:
+        cur = conn.cursor()
+        query = f"UPDATE reservations SET doctor_id = {data.doctor_id}, appointment_date = '{data.appointment_date}', appointment_time = '{data.appointment_time}' WHERE id = {data.queue_id} AND patient_id = {data.patient_id}"
+        cur.execute(query)
+        return cur.rowcount
+    
+    except (Exception, psycopg2.DatabaseError) as error:
+        raise HTTPException(status_code=400, detail={"error": f"{error}"})
