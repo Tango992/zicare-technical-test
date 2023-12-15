@@ -3,6 +3,7 @@ from typing import List
 import model
 import db
 import helper
+import re
 
 def register_patient(patient: model.RegisterPatient):
     patient.password = helper.get_password_hash(patient.password)
@@ -25,6 +26,12 @@ def login_patient(request_data: model.LoginPatientRequest):
 
 
 def create_appointment(request_data: model.DTOAppointmentRequest, user_id: int):
+    if not bool(re.search(r"^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$", request_data.appointment_date)):
+        raise HTTPException(status_code=400, detail={"error": "Invalid date format (YYYY-MM-DD)"})
+    
+    if not bool(re.search(r"^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$", request_data.appointment_time)):
+        raise HTTPException(status_code=400, detail={"error": "Invalid date format (HH:MM:SS)"})
+    
     appointment = model.AppointmentRequest(
         patient_id=user_id, 
         doctor_id=request_data.doctor_id, 

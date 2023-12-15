@@ -11,6 +11,7 @@ conn = psycopg2.connect(
 )
 conn.autocommit = True
 
+
 def get_all_doctors() -> List[model.Doctor]:
     try:
         cur = conn.cursor()
@@ -28,6 +29,7 @@ def get_all_doctors() -> List[model.Doctor]:
     except (Exception, psycopg2.DatabaseError) as error:
             print(error)
 
+
 def register_patient(patient: model.RegisterPatient) -> int:
     try:
         cur = conn.cursor()
@@ -37,6 +39,7 @@ def register_patient(patient: model.RegisterPatient) -> int:
         
     except (Exception, psycopg2.DatabaseError) as error:
             print(error)
+
 
 def get_patient_password_by_phone(phone) -> str:
     try:
@@ -48,6 +51,7 @@ def get_patient_password_by_phone(phone) -> str:
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
+
 def get_patient_id_by_phone(phone) -> int:
     try:
         cur = conn.cursor()
@@ -58,6 +62,7 @@ def get_patient_id_by_phone(phone) -> int:
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
+
 def create_appointment(data: model.AppointmentRequest) -> int:
     try:
         cur = conn.cursor()
@@ -67,6 +72,7 @@ def create_appointment(data: model.AppointmentRequest) -> int:
     
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+
 
 def find_user_appointments(user_id: int) -> List[model.Appointment]:
     try:

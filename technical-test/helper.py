@@ -14,8 +14,10 @@ ALGORITHM = os.getenv('JWT_ALG')
 def get_password_hash(password):
     return pwd_context.hash(password)
 
+
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
+
 
 def create_access_token(data: dict):
     to_encode = data.copy()
@@ -24,13 +26,7 @@ def create_access_token(data: dict):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-def secure(token):
-    # if we want to sign/encrypt the JSON object: {"hello": "world"}, we can do it as follows
-    # encoded = jwt.encode({"hello": "world"}, JWT_SECRET, algorithm=JWT_ALGORITHM)
-    decoded_token = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
-    # this is often used on the client side to encode the user's email address or other properties
-    return decoded_token.get("id")
-    
+
 def verify_token(token):
     try:
         decoded_token = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
