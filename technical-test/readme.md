@@ -38,6 +38,8 @@ JWT is used as an authorization for the patient to book an appointment / to be u
 
 ### Room of Improvements
 
+- Using dependency injection (DI) can be beneficial if the complexity gets higher. Using Go before, I have always implemented dependency injection (i.e. using an interface between controller and repository). With limited time on this project, there's not enough resources for me to implement DI on this project.
+
 - If this application wants to be scalable on high scale, It can be beneficial to make it as a microservices, rather than a monolith like what it is right now. It can also be beneficial to implement caching (such as Redis) for looking up doctors list only if the traffic is significanly high to benefit from using Redis.
 
 - Since this is my first time using a Python to build REST APIs, I think it can be beneficial to use ORM for scalability in the future. But with the limited timespan for this project and the small scale of the project, it's still managable without ORM. 
