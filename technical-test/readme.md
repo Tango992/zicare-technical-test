@@ -28,7 +28,7 @@ including README.md
 
 ### Analysis
 
-Approaching this simple backend problem using FastAPI with 5 days deadline is a unique challenge for me, as my background was building a REST using Go.
+Approaching this simple backend problem using FastAPI with 5 days deadline is a unique challenge for me, as my background was building REST services using Go.
 
 The schema I build includes prescriptions and medicines table (although not yet implemented) gives a sense of scalability if needed in the future.
 
@@ -40,11 +40,11 @@ JWT is used as an authorization for the patient to book an appointment / to be u
 
 - If this application wants to be scalable on high scale, It can be beneficial to make it as a microservices, rather than a monolith like what it is right now. It can also be beneficial to implement caching (such as Redis) for looking up doctors list only if the traffic is significanly high to benefit from using Redis.
 
-- Since this is my first time using a Python to build REST APIs, I think it can be beneficial to use ORM for scalability in the future. But with the limited timespan for this project, it's still managable. 
+- Since this is my first time using a Python to build REST APIs, I think it can be beneficial to use ORM for scalability in the future. But with the limited timespan for this project and the small scale of the project, it's still managable without ORM. 
 
 - It can also be beneficial to use error contracts for scalability in the future.
 
-- If I can rewrite this application with Go, I think I can do more concise and cleaner, since I have had the experience making multiple REST APIs with Go.
+- If I can rewrite this application with Go, I think I can do it more concise and cleaner, since I have had the experience making multiple REST APIs with Go.
 
 ## Instruction
 
