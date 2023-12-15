@@ -1,5 +1,23 @@
 from pydantic import BaseModel
 
+class DTOAppointmentRequest(BaseModel):
+    doctor_id: int
+    appointment_date: str
+    appointment_time: str
+
+class AppointmentRequest(BaseModel):
+    patient_id: int
+    doctor_id: int
+    appointment_date: str
+    appointment_time: str
+
+class Appointment(BaseModel):
+    queue_id: int
+    patient_id: int
+    doctor_id: int
+    appointment_date: str
+    appointment_time: str
+
 class RegisterPatient(BaseModel):
     first_name: str
     middle_name: str | None = None
@@ -33,3 +51,8 @@ class Patient(BaseModel):
     password: str
     birth_date: str
     created_at: str | None = None
+
+class Doctor(BaseModel):
+    id: int
+    speciality: str
+    full_name: str

@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS doctors (
     last_name VARCHAR(255),
     birth_date DATE NOT NULL,
     joined_at DATE NOT NULL,
-    is_active BOOLEAN NOT NULL,
     FOREIGN KEY(speciality_id) REFERENCES specialities(id)
 );
 

@@ -18,8 +18,24 @@ def login_patient(request_data: model.LoginPatientRequest):
     patient_id = db.get_patient_id_by_phone(request_data.phone)
     token = helper.create_access_token(data={"id": patient_id})
 
-    response = model.LoginPatientResponse
-    response.message = "Bearer token"
-    response.token = token
+    response = model.LoginPatientResponse(message="Token for 'authorization' header", token=token)
+    return response
+
+def create_appointment(request_data: model.DTOAppointmentRequest, user_id: int):
+    appointment = model.AppointmentRequest(
+        patient_id=user_id, 
+        doctor_id=request_data.doctor_id, 
+        appointment_date=request_data.appointment_date, 
+        appointment_time=request_data.appointment_time
+    )
     
+    id = db.create_appointment(appointment)
+    
+    response = model.Appointment(
+        queue_id=id,
+        patient_id=user_id, 
+        doctor_id=request_data.doctor_id, 
+        appointment_date=request_data.appointment_date, 
+        appointment_time=request_data.appointment_time
+    )
     return response
