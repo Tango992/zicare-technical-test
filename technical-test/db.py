@@ -29,11 +29,29 @@ def get_all_doctors():
 def register_patient(patient: model.RegisterPatient):
     try:
         cur = conn.cursor()
-        hashed_password = helper.get_password_hash(patient.password)
-        cur.execute("INSERT INTO patients (phone, password, first_name, middle_name, last_name, birth_date) VALUES (%s,%s,%s,%s,%s,%s) RETURNING id", (patient.phone, hashed_password, patient.first_name, patient.middle_name, patient.last_name, patient.birth_date))
+        cur.execute("INSERT INTO patients (phone, password, first_name, middle_name, last_name, birth_date) VALUES (%s,%s,%s,%s,%s,%s) RETURNING id", (patient.phone, patient.password, patient.first_name, patient.middle_name, patient.last_name, patient.birth_date))
         row = cur.fetchone()
         return row[0]
         
     except (Exception, psycopg2.DatabaseError) as error:
             print(error)
 
+def get_patient_password_by_phone(phone):
+    try:
+        cur = conn.cursor()
+        cur.execute(f"SELECT password FROM patients WHERE phone = '{phone}'")
+        result = cur.fetchone()
+        return result[0]
+    
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+def get_patient_id_by_phone(phone):
+    try:
+        cur = conn.cursor()
+        cur.execute(f"SELECT id FROM patients WHERE phone = '{phone}'")
+        result = cur.fetchone()
+        return result[0]
+    
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
