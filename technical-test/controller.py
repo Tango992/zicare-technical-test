@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+from typing import List
 import model
 import db
 import helper
@@ -7,6 +8,7 @@ def register_patient(patient: model.RegisterPatient):
     patient.password = helper.get_password_hash(patient.password)
     id = db.register_patient(patient)
     return id
+
 
 def login_patient(request_data: model.LoginPatientRequest):
     patient_password = db.get_patient_password_by_phone(request_data.phone)
@@ -20,6 +22,7 @@ def login_patient(request_data: model.LoginPatientRequest):
 
     response = model.LoginPatientResponse(message="Token for 'authorization' header", token=token)
     return response
+
 
 def create_appointment(request_data: model.DTOAppointmentRequest, user_id: int):
     appointment = model.AppointmentRequest(
@@ -38,4 +41,9 @@ def create_appointment(request_data: model.DTOAppointmentRequest, user_id: int):
         appointment_date=request_data.appointment_date, 
         appointment_time=request_data.appointment_time
     )
+    return response
+
+
+def get_all_user_appointments(user_id: int) -> List[model.Appointment]:
+    response = db.find_user_appointments(user_id)
     return response
