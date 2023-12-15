@@ -9,6 +9,14 @@ class RegisterPatient(BaseModel):
     password: str
     birth_date: str
 
+class RegisterPatientResponse(BaseModel):
+    id: int | None = None
+    first_name: str
+    middle_name: str | None = None
+    last_name: str | None = None
+    phone: str
+    birth_date: str
+
 class Patient(BaseModel):
     id: int | None = None
     first_name: str

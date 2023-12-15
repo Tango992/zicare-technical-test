@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from datetime import datetime
+import db
 import uvicorn
 import model
 
@@ -9,11 +10,15 @@ app = FastAPI()
 async def root():
     return {"message": "Hello World"}
 
-@app.post("/patient/register", response_model=model.Patient, status_code=201)
+@app.post("/patient/register", response_model=model.RegisterPatientResponse, status_code=201)
 async def register_patient(register_patient: model.RegisterPatient):
-    now = datetime.now().strftime("%Y:%m:%d %H:%M:%S")
-    patient = model.Patient(**register_patient.model_dump(), id=1, created_at=now)
-    return patient
+    id = db.register_patient(register_patient)
+    
+    response = model.RegisterPatientResponse(
+        **register_patient.model_dump(exclude="password"), 
+        id=id, 
+    )
+    return response
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8080, reload=True)

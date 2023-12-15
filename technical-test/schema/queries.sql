@@ -1,8 +1,11 @@
 CREATE DATABASE zicare_clinic;
 
+-- Data Insertion
+
 CREATE TABLE IF NOT EXISTS patients (
     id SERIAL PRIMARY KEY,
     phone VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
     first_name VARCHAR(255) NOT NULL,
     middle_name VARCHAR(255),
     last_name VARCHAR(255),
@@ -64,3 +67,15 @@ CREATE TABLE IF NOT EXISTS prescriptions (
     FOREIGN KEY(reservation_id) REFERENCES reservations(id),
     FOREIGN KEY(medicine_id) REFERENCES medicines(id)
 );
+
+-- Data Population
+
+INSERT INTO specialities (name, description) 
+VALUES 
+    ('Sp. THT', 'Telinga, hidung, dan tenggorokan'), 
+    ('Sp. Anak', 'Kesehatan anak');
+
+INSERT INTO doctors (speciality_id, first_name, middle_name, last_name, birth_date, joined_at, is_active)
+VALUES
+    (1, 'Foo', 'Bar', 'Baz', '1970-01-01', '2020-01-01', 'true'),
+    (2, 'Nirina', 'Raudhatul', 'Zubir', '1980-03-12', '2019-01-01', 'true'); 
