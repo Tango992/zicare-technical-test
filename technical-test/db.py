@@ -5,7 +5,7 @@ import psycopg2
 
 conn = psycopg2.connect(
     database="zicare",
-    host="localhost",
+    host="host.docker.internal",
     user="postgres",
     password="secret", 
     port="5432"

@@ -74,7 +74,7 @@ VALUES
     ('Sp. THT', 'Telinga, hidung, dan tenggorokan'), 
     ('Sp. Anak', 'Kesehatan anak');
 
-INSERT INTO doctors (speciality_id, first_name, middle_name, last_name, birth_date, joined_at, is_active)
+INSERT INTO doctors (speciality_id, first_name, middle_name, last_name, birth_date, joined_at)
 VALUES
-    (1, 'Foo', 'Bar', 'Baz', '1970-01-01', '2020-01-01', 'true'),
-    (2, 'Nirina', 'Raudhatul', 'Zubir', '1980-03-12', '2019-01-01', 'true'); 
+    (1, 'Foo', 'Bar', 'Baz', '1970-01-01', '2020-01-01'),
+    (2, 'Nirina', 'Raudhatul', 'Zubir', '1980-03-12', '2019-01-01'); 
